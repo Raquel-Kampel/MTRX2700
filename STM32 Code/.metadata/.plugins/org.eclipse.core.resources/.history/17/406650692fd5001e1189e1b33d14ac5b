@@ -10,7 +10,7 @@
 
 @define an ASCII string
 ascii_string: .asciz "ArandomASCIIstring\0" @ Define a null-terminated string
-string_buffer: .asciz "ufbxdjfhbxdkfjhbxdf" @ Define a null-terminated string
+string_buffer: .asciz "" @ Define a null-terminated string
 
 
 
@@ -27,8 +27,8 @@ main:
 	LDR R3, =0x00 	@ counter to the current place in the string
 
 string_loop:
-	@ LDRB R4, [R1, R3]	@ load the byte from the ascii_string (byte number R2)
-	@STRB R3, [R2, R3]	@ store the byte in the string_buffer (byte number R2)
+	LDRB R4, [R1, R3]	@ load the byte from the ascii_string (byte number R2)
+	STRB R3, [R2, R3]	@ store the byte in the string_buffer (byte number R2)
 	CMP R2, #0 @ Test to see whether this byte is zero
 	BEQ lowercase_loop @loop to lower case if R2 is 0
 	B uppercase_loop @else looop to uppercase
@@ -36,21 +36,19 @@ string_loop:
 
 lowercase_loop:
 	LDRB R4, [R1, R3] @load current letter into R4
+	ADD R3, #1
 	@LDR R3, #1 @increment to the next letter
 	CMP R4, #0 @ check if the end of the string
 	BEQ finished_everything
-	CMP R4, #97 @subtract 97 from ASCII value
+	SUBS R4, #97 @subtract 97 from ASCII value
 
 	BMI make_lowercase @if negative then the letter is uppercase
 
-	STRB R4, [R0, R3] @puts new letter into buffer
-	ADD R3, #1
+	LDRB R0, [R4] @putes new letter into buffer
 
 
 make_lowercase:
-	ADD R4, 32
-	STRB R4, [R0, R3]@ turns uppercase into lowercase
-	ADD R3, #1
+	LDRB R0, [R4,#32]@ turns uppercase into lowercase
 	B lowercase_loop @exits loop
 
 

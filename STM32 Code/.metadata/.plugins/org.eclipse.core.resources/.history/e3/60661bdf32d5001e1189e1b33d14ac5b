@@ -36,21 +36,19 @@ string_loop:
 
 lowercase_loop:
 	LDRB R4, [R1, R3] @load current letter into R4
+	ADD R3, #1
 	@LDR R3, #1 @increment to the next letter
 	CMP R4, #0 @ check if the end of the string
 	BEQ finished_everything
-	CMP R4, #97 @subtract 97 from ASCII value
+	SUBS R4, #97 @subtract 97 from ASCII value
 
 	BMI make_lowercase @if negative then the letter is uppercase
 
-	STRB R4, [R0, R3] @puts new letter into buffer
-	ADD R3, #1
+	STRB R0, [R4] @puts new letter into buffer
 
 
 make_lowercase:
-	ADD R4, 32
-	STRB R4, [R0, R3]@ turns uppercase into lowercase
-	ADD R3, #1
+	STRB R0, [R4,#32]@ turns uppercase into lowercase
 	B lowercase_loop @exits loop
 
 

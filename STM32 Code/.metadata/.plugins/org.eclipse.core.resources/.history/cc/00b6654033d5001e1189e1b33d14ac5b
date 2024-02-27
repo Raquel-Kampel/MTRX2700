@@ -39,7 +39,7 @@ lowercase_loop:
 	@LDR R3, #1 @increment to the next letter
 	CMP R4, #0 @ check if the end of the string
 	BEQ finished_everything
-	CMP R4, #97 @subtract 97 from ASCII value
+	SUBS R4, #97 @subtract 97 from ASCII value
 
 	BMI make_lowercase @if negative then the letter is uppercase
 
@@ -48,7 +48,7 @@ lowercase_loop:
 
 
 make_lowercase:
-	ADD R4, 32
+	ADD R4, #32
 	STRB R4, [R0, R3]@ turns uppercase into lowercase
 	ADD R3, #1
 	B lowercase_loop @exits loop
