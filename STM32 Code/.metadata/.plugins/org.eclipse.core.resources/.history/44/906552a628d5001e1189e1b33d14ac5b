@@ -23,22 +23,8 @@ main:
 	LDR R1, =ascii_string  @ the address of the string
 	LDR R2, =string_buffer  @ the address of the string
 	LDR R3, =0x00 	@ counter to the current place in the string
-	LDR R4 =
+
 
 string_loop:
 	LDRB R3, [R1, R3]	@ load the byte from the ascii_string (byte number R2)
 	STRB R3, [R2, R3]	@ store the byte in the string_buffer (byte number R2)
-	CMP R2, #0 @ Test to see whether this byte is zero
-	BEQ lowercase_loop @loop to lower case if R2 is 0
-	B uppercase_loop @else looop to uppercase
-
-
-lowercase_loop:
-	LDRB R2[R1,0]
-
-uppercase_loop:
-
-
-finished_everything:
-
-	B finished_everything 	@ infinite loop here
