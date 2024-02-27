@@ -10,7 +10,7 @@
 
 @define an ASCII string
 ascii_string: .asciz "ArandomASCIIstring\0" @ Define a null-terminated string
-string_buffer: .asciz "" @ Define a null-terminated string
+string_buffer: .asciz "replace this text replace this text" @ Define a null-terminated string
 
 
 
@@ -21,7 +21,7 @@ string_buffer: .asciz "" @ Define a null-terminated string
 @ this is the entry function called from the startup file
 main:
 
-	LDR R0, =string_buffer
+	LDR R0 =string_buffer
 	LDR R1, =ascii_string  @ the address of the string
 	LDR R2, =0x00  @
 	LDR R3, =0x00 	@ counter to the current place in the string
@@ -36,8 +36,7 @@ string_loop:
 
 lowercase_loop:
 	LDRB R4, [R1, R3] @load current letter into R4
-	ADD R3, #1
-	@LDR R3, #1 @increment to the next letter
+	LDR R3, #1 @increment to the next letter
 	CMP R4, #0 @ check if the end of the string
 	BEQ finished_everything
 	SUBS R4, #97 @subtract 97 from ASCII value
@@ -53,7 +52,7 @@ make_lowercase:
 
 
 uppercase_loop:
-	@LDRSB R0[R4, #32]@turns lower into uppercase
+	LDRSB R0[R4, #32]@turns lower into uppercase
 
 
 
