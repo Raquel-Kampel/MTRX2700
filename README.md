@@ -22,6 +22,7 @@ All individual questions are coded in their own .s file. A main file is created 
 ### Functions and modularity
 
 ### Testing
+Using putty to test
 
 ### Notes
 - Members
