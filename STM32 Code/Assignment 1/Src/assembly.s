@@ -4,6 +4,7 @@
 @Task 1.3.2a
 .global main
 
+#include "1,2,3b"
 
 .data
 @ define variables

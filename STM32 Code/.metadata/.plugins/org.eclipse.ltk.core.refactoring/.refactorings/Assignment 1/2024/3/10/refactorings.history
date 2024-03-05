@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;Assignment 1/Src/1B.s&apos; to &apos;1,2,3b.s&apos;" description="Rename resource &apos;1B.s&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="Src/1B.s" name="1,2,3b.s" stamp="1709613092545" updateReferences="true"/>
+</session>

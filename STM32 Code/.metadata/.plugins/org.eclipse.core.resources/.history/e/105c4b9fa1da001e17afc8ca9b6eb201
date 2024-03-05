@@ -1,0 +1,48 @@
+.syntax unified
+.thumb
+
+@Task 1.3.2b
+.global main
+
+.data
+@define variables
+
+string: .asciz "Hello, World" @define an ascii string
+
+
+@caeserCipher function
+.global caesarCipher
+
+caeserCipher:
+	@input:
+	@R0: Memory address of string
+	@R1: Shift value (positive or negative)
+
+	PUSH {LR} @save the link register
+
+	MOV R2, R1 @copy the shift value to R3
+
+    @ Loop through the string
+    loop:
+        LDRB R3, [R0], #1        @ Load one byte at the current address of R1 into R4 and increment the address
+        CMP R3, #0               @ Compares the byte in R4 to zero to check for the end of the string
+        BEQ endLoop              @ If the above is true then, exit the loop
+
+        ADD R3, R3, R2           @ Apply the Caesar Cipher shift to the current byte
+
+        STRB R3, [R0, #-1]        @ Store the shifted byte back to memory
+
+        B loop                   @ Repeat the loop
+
+    endLoop:
+    POP {PC}                     @ Restore the program counter
+
+.text
+.global main
+
+main:
+
+    LDR R0, =string              @ store the memory address of the string into R1
+    MOV R1, #3                   @ Set the shift value to 3 (you can change this value as needed)
+
+    BL caesarCipher              @ Call the Caesar Cipher function
