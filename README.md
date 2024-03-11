@@ -47,5 +47,18 @@ Using putty to test
 - using general purpose time TIM2 which is a 32-bit timer
 - base adress of timer 2 = 0x4000 0000
 - Selecting appropriate prescalar values
-- page 6o on datasheet clock frequency is 72MHz:
+- page 6o on datasheet clock frequency is 8MHz:
   Tick duration 1/frequency x (Prescalar value + 1)
+
+  1 microsecond:
+  prescalar value = 8MHz x 1x10^-6/(1x10^-6)-1 = 7
+
+  1 second
+  prescalar value = [8MHz x 1]/(1)-1 = 7999999
+
+  1 hour
+  prescalar = (8MHz x3600)-1 = 28799999
+
+  1c
+  
+  
