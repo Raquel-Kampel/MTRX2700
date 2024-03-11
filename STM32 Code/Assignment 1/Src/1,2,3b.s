@@ -2,7 +2,6 @@
 .thumb
 
 @Task 1.3.2b
-.global main
 
 .data
 @define variables
