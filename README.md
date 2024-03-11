@@ -29,3 +29,23 @@ Using putty to test
 - Project details
 - High level info about code
 - Testing procedure details
+
+## Exercise 4 # - One Line Descriptor
+
+### Summary
+Using the Timer 2 (TIM2) that is configured in initialise.s file.  
+### Usage
+
+### Valid input
+
+### Functions and modularity
+
+### Testing
+Using putty to test
+
+### Notes
+- using general purpose time TIM2 which is a 32-bit timer
+- base adress of timer 2 = 0x4000 0000
+- Selecting appropriate prescalar values
+- page 6o on datasheet clock frequency is 72MHz:
+  Tick duration 1/frequency x (Prescalar value + 1)
