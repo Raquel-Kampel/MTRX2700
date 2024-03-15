@@ -11,18 +11,26 @@ Campbell Kerr
 ## Project Overview
 All individual questions are coded in their own .s file. A main file is created to branch to each question when uncommented. 
 
-## Exercise # - One Line Descriptor
+## Exercise # - Looping through characters in a ASCII string to perform different operations such as converting letters to lower/upper case, shifting the value of the string or encoding the messsge. 
 
 ### Summary
+1.3.2a 
 
+1.3.2b depending on if the current letter is below z or too low, a right/left shift is applied until the null terminating character is reached which is the end of the string.
+
+1.3.2c. 
 ### Usage
 
 ### Valid input
+any ASCII string. 
 
 ### Functions and modularity
+There is a function to detemine which shift direction fucntion will be implemented. 
+The left and right shift functions, each apply their own specific value to the string. There are also two seperate functions to determine if the current character is below a. 
 
 ### Testing
-Using putty to test
+Using putty to test. 
+input a random string and adding a value to R2. 
 
 ### Notes
 - Members
