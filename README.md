@@ -1,8 +1,8 @@
 # MTRX2700 Project 2
 
 ## Group Members
-Raquel Kampel
-Eric Jiang
+Raquel Kampel,
+Eric Jiang,
 Campbell Kerr
 
 ## Roles and Responbilities
