@@ -20,29 +20,31 @@ All individual questions are coded in their own .s file. A main file is created 
 ## Exercise 1 # - Looping through characters in a ASCII string to perform different operations such as converting letters to lower/upper case, shifting the value of the string or encoding the messsge. 
 
 ### Summary
-1.3.2a 
+1.3.2a Converts the case of letters in a ASCII string based on the value stores in R2. The function traverses through the string until reaching the Null terminating character
 
 1.3.2b Shifts down/up the alphabet based on user input, n the direction of a --> z or z --> a. Depending on if the hexidecimal value of the current letter is below "a" (0x61) or above "z" (0x7A), a right/left shift is applied until the null terminating character is reached which is the end of the string.
 
-1.3.2c. 
-### Usage
+1.3.2c. The function uses a substitution table and a value indicating decoding or encoding
 
 ### Valid input
-any ASCII string. 
+A valid ASCII string stored in memory with a null-terminating character. 
+The state value stored in R2. For 1c, the value stored in register R4 determines the number of times the encoding or decoding process should be applied.
 
 ### Functions and modularity
 There is a function to detemine which shift direction fucntion will be implemented. 
 The left and right shift functions, each apply their own specific value to the string. There are also two seperate functions to determine if the current character is below a. 
 
 ### Testing
-Using putty to test. 
+For part a: Providing test cases covering strings with various lengths and containing different combinations of uppercase and lowercase letters. Checking edge cases such as an empty string or a string with only one character.
+Part b: Using putty to test. 
 input a random string and adding a value to R2. 
 
 ### Notes
-- Members
-- Project details
-- High level info about code
-- Testing procedure details
+1a: 
+- Conversion is based on the difference between lowercase and uppercase characters ('a' - 'A' = 32)
+-  the function updates the string buffer with the new character and moves to the next character until the end of the string is reached.
+  1b : Applys a shift in both positive and negative directions. 
+  1 c: number of iterations determines how many times the encoding or decoding process should be applied. Decoding reverses the encoding process. 
 
 ## Exercise 4 # - Hardware Timer Delay Function with String Shifting
 
