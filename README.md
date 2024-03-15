@@ -16,7 +16,7 @@ All individual questions are coded in their own .s file. A main file is created 
 ### Summary
 1.3.2a 
 
-1.3.2b depending on if the current letter is below z or too low, a right/left shift is applied until the null terminating character is reached which is the end of the string.
+1.3.2b Shifts down/up the alphabet based on user input, n the direction of a --> z or z --> a. Depending on if the hexidecimal value of the current letter is below "a" (0x61) or above "z" (0x7A), a right/left shift is applied until the null terminating character is reached which is the end of the string.
 
 1.3.2c. 
 ### Usage
