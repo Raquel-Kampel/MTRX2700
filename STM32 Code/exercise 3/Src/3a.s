@@ -5,56 +5,91 @@
 
 .data
 
-tx_string: .asciz "this is a message\r\n$"
-
+tx_string: .asciz "this is a message$"
 
 .text
 
 
 part_a_main:
-	MOV R2, #0	@ flag for if button was pressed on the previous check
+
+	LDR R0, =USART1	@ load UART
+	MOV R2, #0		@ flag for if button was pressed on the previous check
+
+	B wait_for_button
 
 
 wait_for_button:
 
-	LDR R3, =GPIOA		@ port for the input button
-	LDR R4, [R3, IDR]	@ load input data register for port A
-	AND R4, 1 			@ check if PA0 (button input) is 1 (pressed)
+	@ load the button input data and check if it is 1
+	LDR R3, =GPIOA
+	LDR R4, [R3, IDR]
+	AND R4, 1 @ get the first bit in the IDR (button signal)
 	CMP R4, 1
-	BEQ tx_loop			@ if button is pressed, transmit message
+	BEQ button_pressed
 
 	MOV R2, #0
 
 	B wait_for_button
 
 
-tx_loop:
+button_pressed:
 
+	@ check if button was pressed on the previous check
 	CMP R2, 1
 	BEQ wait_for_button
 
-	LDR R0, =UART
-	LDR R1, =tx_string
-
+	LDR R1, =tx_string	@ string to transmit
 	MOV R2, #1
 
+	@ start transmitting, and wait for button again when finished
+	BL store_position
+	B wait_for_button
 
-tx_uart:
 
-	LDR R3, [R0, USART_ISR] @ load the status of the UART
-	ANDS R3, 1 << UART_TXE  @ 'AND' the current status with the bit mask that we are interested in
-						    @ NOTE, the ANDS is used so that if the result is '0' the z register flag is set
+store_position:
 
-	@ loop back to check status again if the flag indicates there is no byte waiting
-	BEQ tx_uart
+	@ store where to return to so it doesn't get overwritten
+	MOV R6, LR
 
-	@ load the next value in the string into the transmit buffer for the specified UART
+	B tx_loop
+
+
+tx_loop:
+
+	@ wait until ready to transmit
+	BL wait_for_ISR
+
+	@ load the current byte
 	LDRB R5, [R1], #1
 
-	CMP R5, #0x24 @ check if the '$' symbol has been reached indicating to stop transmitting
+	@ check for '$' symbol, indicating to stop transmitting
+	CMP R5, #0x24
+	BEQ finish_transmit
 
-	BEQ wait_for_button
-
+	@ transmit the current byte
 	STRB R5, [R0, USART_TDR]
 
-	B tx_uart
+	B tx_loop
+
+
+wait_for_ISR:
+
+	LDR R3, [R0, USART_ISR]
+	ANDS R3, 1 << UART_TXE
+	BEQ wait_for_ISR
+
+	BX LR
+
+
+finish_transmit:
+
+	@ transmit carriage return and newline characters
+	MOV R5, #0x0D
+	STRB R5, [R0, USART_TDR]
+
+	BL wait_for_ISR
+
+	MOV R5, #0x0A
+	STRB R5, [R0, USART_TDR]
+
+	BX R6

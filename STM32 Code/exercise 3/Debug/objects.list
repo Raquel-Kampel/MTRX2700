@@ -2,6 +2,7 @@
 "./Src/3b.o"
 "./Src/3c.o"
 "./Src/3d.o"
+"./Src/3e.o"
 "./Src/assembly.o"
 "./Src/definitions.o"
 "./Src/initialise.o"

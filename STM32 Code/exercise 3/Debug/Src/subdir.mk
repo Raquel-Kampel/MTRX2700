@@ -9,6 +9,7 @@ S_SRCS += \
 ../Src/3b.s \
 ../Src/3c.s \
 ../Src/3d.s \
+../Src/3e.s \
 ../Src/assembly.s \
 ../Src/definitions.s \
 ../Src/initialise.s 
@@ -18,6 +19,7 @@ OBJS += \
 ./Src/3b.o \
 ./Src/3c.o \
 ./Src/3d.o \
+./Src/3e.o \
 ./Src/assembly.o \
 ./Src/definitions.o \
 ./Src/initialise.o 
@@ -27,6 +29,7 @@ S_DEPS += \
 ./Src/3b.d \
 ./Src/3c.d \
 ./Src/3d.d \
+./Src/3e.d \
 ./Src/assembly.d \
 ./Src/definitions.d \
 ./Src/initialise.d 
@@ -39,7 +42,7 @@ Src/%.o: ../Src/%.s Src/subdir.mk
 clean: clean-Src
 
 clean-Src:
-	-$(RM) ./Src/3a.d ./Src/3a.o ./Src/3b.d ./Src/3b.o ./Src/3c.d ./Src/3c.o ./Src/3d.d ./Src/3d.o ./Src/assembly.d ./Src/assembly.o ./Src/definitions.d ./Src/definitions.o ./Src/initialise.d ./Src/initialise.o
+	-$(RM) ./Src/3a.d ./Src/3a.o ./Src/3b.d ./Src/3b.o ./Src/3c.d ./Src/3c.o ./Src/3d.d ./Src/3d.o ./Src/3e.d ./Src/3e.o ./Src/assembly.d ./Src/assembly.o ./Src/definitions.d ./Src/definitions.o ./Src/initialise.d ./Src/initialise.o
 
 .PHONY: clean-Src
 

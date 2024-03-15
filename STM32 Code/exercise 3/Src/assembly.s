@@ -8,9 +8,9 @@
 #include "3b.s"
 #include "3c.s"
 #include "3d.s"
+#include "3e.s"
 
 .data
-
 
 .text
 
@@ -30,4 +30,6 @@ main:
 
 	@ B part_c_main @ (change clock)
 
-	B part_d_main @ (transmit and read)
+	@ B part_d_main @ (transmit and read)
+
+	B part_e_main @ (transmit via USART1 and read with UART4)

@@ -5,10 +5,9 @@
 
 .data
 
-
 .align
 incoming_buffer: .space 62	@ buffer for string to be read (max 62 characters)
-incoming_counter: .byte 62	@ counter for number of characters read
+buffer_size: .byte 62		@ buffer size
 
 
 .text
@@ -16,49 +15,51 @@ incoming_counter: .byte 62	@ counter for number of characters read
 
 part_b_main:
 
-	@ Get pointers to the buffer and counter memory areas
+	@ Get pointers to the buffer and buffer size
 	LDR R1, =incoming_buffer
-	LDR R7, =incoming_counter
+	LDR R7, =buffer_size
+	LDRB R7, [R7]	@ de-reference R7
+	MOV R8, #0x00	@ counter for how many letters received
+	LDR R0, =USART1	@ load USART1
 
-	@ dereference the memory for the maximum buffer size, store it in R7
-	LDRB R7, [R7]
+	@ start reading
+	BL rx_loop
 
-	@ Keep a pointer that counts how many bytes have been received
-	MOV R8, #0x00
+	@ enter infinite loop when finished
+	B finish_loop
 
 
 rx_loop:
 
-	LDR R0, =UART @ the base address for the register to set up UART
-	LDR R2, [R0, USART_ISR] @ load the status of the UART
+	@ load UART status register
+	LDR R2, [R0, USART_ISR]
 
-	TST R2, 1 << UART_ORE | 1 << UART_FE  @ 'AND' the current status with the bit mask that we are interested in
-						   @ NOTE, the ANDS is used so that if the result is '0' the z register flag is set
-
+	@ check for overrun or frame errors
+	TST R2, 1 << UART_ORE | 1 << UART_FE
 	BNE clear_error
 
-	TST R2, 1 << UART_RXNE @ 'AND' the current status with the bit mask that we are interested in
-							  @ NOTE, the ANDS is used so that if the result is '0' the z register flag is set
+	@ check if there is a byte ready to read
+	TST R2, 1 << UART_RXNE
+	BEQ rx_loop
 
-	BEQ rx_loop @ loop back to check status again if the flag indicates there is no byte waiting
-
-	LDRB R3, [R0, USART_RDR] @ load the lowest byte (RDR bits [0:7] for an 8 bit read)
-
-	CMP R3, #0x24 @ check if the '$' symbol has been reached indicating to stop reading
-
-	BEQ finish_loop
-
+	@ store byte in the buffer and increment buffer position
+	LDRB R3, [R0, USART_RDR]
 	STRB R3, [R1, R8]
 	ADD R8, #1
 
+	@ load current byte, check if it is '$' indicating to stop reading
+	CMP R3, #0x24
+	BEQ finish_read
+
+	@ check if transmission exceeds buffer size
 	CMP R7, R8
 	BGT no_reset
-	MOV R8, #0
+	MOV R8, #0 @ reset the buffer position
 
 
 no_reset:
 
-	@ load the status of the UART
+	@ refreshes the RXNE flag (prevents overrun error)
 	LDR R2, [R0, USART_RQR]
 	ORR R2, 1 << UART_RXFRQ
 	STR R2, [R0, USART_RQR]
@@ -68,11 +69,17 @@ no_reset:
 
 clear_error:
 
-	@ Clear the overrun/frame error flag in the register USART_ICR (see page 897)
+	@ Clear the overrun/frame error flags by setting them to 1
 	LDR R2, [R0, USART_ICR]
-	ORR R2, 1 << UART_ORECF | 1 << UART_FECF @ clear the flags (by setting flags to 1)
+	ORR R2, 1 << UART_ORECF | 1 << UART_FECF
 	STR R2, [R0, USART_ICR]
+
 	B rx_loop
+
+
+finish_read:
+
+	BX LR
 
 
 finish_loop:
