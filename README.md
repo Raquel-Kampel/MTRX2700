@@ -38,10 +38,10 @@ input a random string and adding a value to R2.
 - High level info about code
 - Testing procedure details
 
-## Exercise 4 # - One Line Descriptor
+## Exercise 4 # - Hardware Timer Delay Function with String Shifting
 
 ### Summary
-Using the Timer 2 (TIM2) that is configured in initialise.s file. 
+The code creates delay periods using the Timer 2 (TIM2) that is configured in initialise.s file. The code implements a delay function using hardware timers and provides string shifting functionality.
 #### steps:
  - start counter (timer control register 1) = TIM2_CR1 / Set a 1 in bit 0
  - TIM2_CNT
@@ -52,11 +52,12 @@ Using the Timer 2 (TIM2) that is configured in initialise.s file.
 ### Usage
 
 ### Valid input
-
+The delay function takes a delay of any reasonable time passed through register R1.
 ### Functions and modularity
 
 ### Testing
-Using putty to test
+ - Using putty to test
+ - The delay function: Testing with various delay periods to verify accuracy, checking edge cases such as very short or very long delays.
 
 ### Notes
 - using general purpose time TIM2 which is a 32-bit timer
@@ -77,6 +78,8 @@ Using putty to test
   1 hour
   prescalar = (8MHz x3600)-1 = 28799999
 
-  1c
-  
+ - The Auto-Reload Preload (ARPE) bit is enabled for precise management of delay    
+   periods entirely in hardware.
+ - The delay function waits for the timer to reach the specified delay time before 
+   returning.
   
