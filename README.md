@@ -17,7 +17,7 @@ Campbell Kerr
 ## Project Overview
 All individual questions are coded in their own .s file. A main file is created to branch to each question when uncommented. 
 
-## Exercise # - Looping through characters in a ASCII string to perform different operations such as converting letters to lower/upper case, shifting the value of the string or encoding the messsge. 
+## Exercise 1 # - Looping through characters in a ASCII string to perform different operations such as converting letters to lower/upper case, shifting the value of the string or encoding the messsge. 
 
 ### Summary
 1.3.2a 
