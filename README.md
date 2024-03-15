@@ -6,13 +6,13 @@ Eric Jiang
 Campbell Kerr
 
 ## Roles and Responbilities
-Question 1a - Together
+- Question 1a - Together
           b - Raquel
           c - Campbell
-Question 2 - Eric
-Question 3 - Campbell
-Question 4 - Raquel
-Question 5 - Together
+- Question 2 - Eric
+- Question 3 - Campbell
+- Question 4 - Raquel
+- Question 5 - Together
 
 ## Project Overview
 All individual questions are coded in their own .s file. A main file is created to branch to each question when uncommented. 
