@@ -31,13 +31,13 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY
  13 .comment      00000043  00000000  00000000  00020084  2**0
                   CONTENTS, READONLY
- 14 .debug_line   000001bf  00000000  00000000  000200c7  2**0
+ 14 .debug_line   000001bd  00000000  00000000  000200c7  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 15 .debug_line_str 000000bf  00000000  00000000  00020286  2**0
+ 15 .debug_line_str 000000bf  00000000  00000000  00020284  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 16 .debug_info   00000048  00000000  00000000  00020345  2**0
+ 16 .debug_info   00000048  00000000  00000000  00020343  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_abbrev 00000026  00000000  00000000  0002038d  2**0
+ 17 .debug_abbrev 00000026  00000000  00000000  0002038b  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  18 .debug_aranges 00000048  00000000  00000000  000203b8  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
@@ -384,14 +384,14 @@ tx_loop:
  80002ca:	f000 f807 	bl	80002dc <wait_for_ISR>
 
 	@ load the current byte
-	LDRB R5, [R1], #1
- 80002ce:	f811 5b01 	ldrb.w	r5, [r1], #1
-	STRB R5, [R0, USART_TDR]
- 80002d2:	f880 5028 	strb.w	r5, [r0, #40]	; 0x28
+	LDRB R3, [R1], #1
+ 80002ce:	f811 3b01 	ldrb.w	r3, [r1], #1
+	STRB R3, [R0, USART_TDR]
+ 80002d2:	f880 3028 	strb.w	r3, [r0, #40]	; 0x28
 
 	@ check for carriage return (enter key), indicating to stop transmitting
-	CMP R5, #0x0D
- 80002d6:	2d0d      	cmp	r5, #13
+	CMP R3, #0x0D
+ 80002d6:	2b0d      	cmp	r3, #13
 	BNE tx_loop
  80002d8:	d1f7      	bne.n	80002ca <tx_loop>
 
@@ -422,30 +422,30 @@ finish_transmit:
  80002e6:	f7ff fff9 	bl	80002dc <wait_for_ISR>
 
 	@ transmit a newline character
-	MOV R5, #0x0A
- 80002ea:	f04f 050a 	mov.w	r5, #10
-	STRB R5, [R0, USART_TDR]
- 80002ee:	f880 5028 	strb.w	r5, [r0, #40]	; 0x28
+	MOV R3, #0x0A
+ 80002ea:	f04f 030a 	mov.w	r3, #10
+	STRB R3, [R0, USART_TDR]
+ 80002ee:	f880 3028 	strb.w	r3, [r0, #40]	; 0x28
 
 	BX R6
  80002f2:	4730      	bx	r6
 
 080002f4 <part_b_main>:
+.text
 
 
 part_b_main:
 
-	@ Get pointers to the buffer and buffer size
-	LDR R1, =incoming_buffer
- 80002f4:	492f      	ldr	r1, [pc, #188]	; (80003b4 <main+0x2c>)
-	LDR R7, =buffer_size
- 80002f6:	4f30      	ldr	r7, [pc, #192]	; (80003b8 <main+0x30>)
-	LDRB R7, [R7]	@ de-reference R7
- 80002f8:	783f      	ldrb	r7, [r7, #0]
-	MOV R8, #0x00	@ counter for how many letters received
- 80002fa:	f04f 0800 	mov.w	r8, #0
-	LDR R0, =USART1	@ load USART1
- 80002fe:	482a      	ldr	r0, [pc, #168]	; (80003a8 <main+0x20>)
+	LDR R0, =USART1				@ load USART1
+ 80002f4:	482c      	ldr	r0, [pc, #176]	; (80003a8 <main+0x20>)
+	LDR R1, =incoming_buffer	@ buffer for storing string read in
+ 80002f6:	492f      	ldr	r1, [pc, #188]	; (80003b4 <main+0x2c>)
+	LDR R7, =buffer_size		@ size of buffer
+ 80002f8:	4f2f      	ldr	r7, [pc, #188]	; (80003b8 <main+0x30>)
+	LDRB R7, [R7]				@ de-reference R7
+ 80002fa:	783f      	ldrb	r7, [r7, #0]
+	MOV R8, #0x00				@ counter for how many letters received
+ 80002fc:	f04f 0800 	mov.w	r8, #0
 
 	@ start reading
 	BL rx_loop
@@ -568,21 +568,21 @@ part_c_main:
  8000350:	e7a3      	b.n	800029a <part_a_main>
 
 08000352 <part_d_main>:
+.text
 
 
 part_d_main:
 
-	@ Get pointers to the buffer and buffer size (62)
-	LDR R1, =incoming_buffer
- 8000352:	4918      	ldr	r1, [pc, #96]	; (80003b4 <main+0x2c>)
-	LDR R7, =buffer_size
- 8000354:	4f18      	ldr	r7, [pc, #96]	; (80003b8 <main+0x30>)
-	LDRB R7, [R7]	@ de-reference R7
- 8000356:	783f      	ldrb	r7, [r7, #0]
-	MOV R8, #0x00	@ counter for how many letters received
- 8000358:	f04f 0800 	mov.w	r8, #0
-	LDR R0, =USART1	@ load USART1
- 800035c:	4812      	ldr	r0, [pc, #72]	; (80003a8 <main+0x20>)
+	LDR R0, =USART1				@ load USART1
+ 8000352:	4815      	ldr	r0, [pc, #84]	; (80003a8 <main+0x20>)
+	LDR R1, =incoming_buffer	@ buffer for storing string read in
+ 8000354:	4917      	ldr	r1, [pc, #92]	; (80003b4 <main+0x2c>)
+	LDR R7, =buffer_size		@ size of buffer
+ 8000356:	4f18      	ldr	r7, [pc, #96]	; (80003b8 <main+0x30>)
+	LDRB R7, [R7]				@ de-reference R7
+ 8000358:	783f      	ldrb	r7, [r7, #0]
+	MOV R8, #0x00				@ counter for how many letters received
+ 800035a:	f04f 0800 	mov.w	r8, #0
 
 	@ branch to the read function (in 3b.s)
 	BL rx_loop
@@ -616,7 +616,7 @@ part_e_main:
  8000372:	e7ff      	b.n	8000374 <transmitting>
 
 08000374 <transmitting>:
-	@ B receiving
+
 
 
 transmitting:
@@ -640,7 +640,7 @@ transmitting:
 
 receiving:
 
-	LDR R0, =UART4	@ load UART4
+	LDR R0, =UART4 @ load UART4
  8000380:	480a      	ldr	r0, [pc, #40]	; (80003ac <main+0x24>)
 
 	@ read in characters
@@ -663,12 +663,10 @@ main:
 	BL enable_uart
  8000390:	f7ff ff26 	bl	80001e0 <enable_uart>
 
-	@ B part_c_main @ (change clock)
+	@ uncomment for exercise part:
 
-	@ B part_d_main @ (transmit and read)
-
-	B part_e_main @ (transmit via USART1 and read with UART4)
- 8000394:	e7e8      	b.n	8000368 <part_e_main>
+	B part_a_main @ (transmit)
+ 8000394:	e781      	b.n	800029a <part_a_main>
  8000396:	0000      	.short	0x0000
 	LDR R0, =RCC
  8000398:	40021000 	.word	0x40021000
@@ -684,9 +682,9 @@ main:
  80003ac:	40004c00 	.word	0x40004c00
 	LDR R1, =tx_string	@ string to transmit
  80003b0:	20000000 	.word	0x20000000
-	LDR R1, =incoming_buffer
+	LDR R1, =incoming_buffer	@ buffer for storing string read in
  80003b4:	20000014 	.word	0x20000014
-	LDR R7, =buffer_size
+	LDR R7, =buffer_size		@ size of buffer
  80003b8:	20000052 	.word	0x20000052
 
 080003bc <Reset_Handler>:

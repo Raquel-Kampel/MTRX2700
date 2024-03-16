@@ -24,6 +24,7 @@ part_e_main:
 	@ B receiving
 
 
+
 transmitting:
 
 	LDR R0, =USART1	@ load USART1

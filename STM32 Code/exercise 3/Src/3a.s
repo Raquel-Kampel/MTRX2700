@@ -60,11 +60,11 @@ tx_loop:
 	BL wait_for_ISR
 
 	@ load the current byte
-	LDRB R5, [R1], #1
-	STRB R5, [R0, USART_TDR]
+	LDRB R3, [R1], #1
+	STRB R3, [R0, USART_TDR]
 
 	@ check for carriage return (enter key), indicating to stop transmitting
-	CMP R5, #0x0D
+	CMP R3, #0x0D
 	BNE tx_loop
 
 	B finish_transmit
@@ -84,7 +84,7 @@ finish_transmit:
 	BL wait_for_ISR
 
 	@ transmit a newline character
-	MOV R5, #0x0A
-	STRB R5, [R0, USART_TDR]
+	MOV R3, #0x0A
+	STRB R3, [R0, USART_TDR]
 
 	BX R6

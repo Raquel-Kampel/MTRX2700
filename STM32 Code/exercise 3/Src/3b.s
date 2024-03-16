@@ -15,12 +15,11 @@ buffer_size: .byte 62		@ buffer size
 
 part_b_main:
 
-	@ Get pointers to the buffer and buffer size
-	LDR R1, =incoming_buffer
-	LDR R7, =buffer_size
-	LDRB R7, [R7]	@ de-reference R7
-	MOV R8, #0x00	@ counter for how many letters received
-	LDR R0, =USART1	@ load USART1
+	LDR R0, =USART1				@ load USART1
+	LDR R1, =incoming_buffer	@ buffer for storing string read in
+	LDR R7, =buffer_size		@ size of buffer
+	LDRB R7, [R7]				@ de-reference R7
+	MOV R8, #0x00				@ counter for how many letters received
 
 	@ start reading
 	BL rx_loop
