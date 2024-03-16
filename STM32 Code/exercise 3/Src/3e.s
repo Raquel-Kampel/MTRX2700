@@ -32,16 +32,16 @@ transmitting:
 	BL rx_loop
 
 	@ transmit characters
-	BL store_position
+	BL return_after_tx
 
-	B transmitting
+	B part_e_main
 
 
 receiving:
 
-	LDR R0, =UART4	@ load UART4
+	LDR R0, =UART4 @ load UART4
 
-	@ read in characters from the command line
+	@ read in characters
 	BL rx_loop
 
-	B receiving
+	B part_e_main

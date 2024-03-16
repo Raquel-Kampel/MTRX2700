@@ -47,8 +47,8 @@ rx_loop:
 	STRB R3, [R1, R8]
 	ADD R8, #1
 
-	@ load current byte, check if it is '$' indicating to stop reading
-	CMP R3, #0x24
+	@ load current byte, check for carriage return (enter key)
+	CMP R3, #0x0D
 	BEQ finish_read
 
 	@ check if transmission exceeds buffer size

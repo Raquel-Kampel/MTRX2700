@@ -5,7 +5,7 @@
 
 .data
 
-tx_string: .asciz "this is a message$"
+tx_string: .asciz "this is a message\r"
 
 .text
 
@@ -42,11 +42,11 @@ button_pressed:
 	MOV R2, #1
 
 	@ start transmitting, and wait for button again when finished
-	BL store_position
+	BL return_after_tx
 	B wait_for_button
 
 
-store_position:
+return_after_tx:
 
 	@ store where to return to so it doesn't get overwritten
 	MOV R6, LR
@@ -61,15 +61,13 @@ tx_loop:
 
 	@ load the current byte
 	LDRB R5, [R1], #1
-
-	@ check for '$' symbol, indicating to stop transmitting
-	CMP R5, #0x24
-	BEQ finish_transmit
-
-	@ transmit the current byte
 	STRB R5, [R0, USART_TDR]
 
-	B tx_loop
+	@ check for carriage return (enter key), indicating to stop transmitting
+	CMP R5, #0x0D
+	BNE tx_loop
+
+	B finish_transmit
 
 
 wait_for_ISR:
@@ -83,12 +81,9 @@ wait_for_ISR:
 
 finish_transmit:
 
-	@ transmit carriage return and newline characters
-	MOV R5, #0x0D
-	STRB R5, [R0, USART_TDR]
-
 	BL wait_for_ISR
 
+	@ transmit a newline character
 	MOV R5, #0x0A
 	STRB R5, [R0, USART_TDR]
 

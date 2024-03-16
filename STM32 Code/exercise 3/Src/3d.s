@@ -22,6 +22,6 @@ part_d_main:
 	BL rx_loop
 
 	@ branch to the transmit function (in 3a.s)
-	BL store_position
+	BL return_after_tx
 
 	B part_d_main
