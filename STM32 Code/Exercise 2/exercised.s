@@ -8,8 +8,6 @@
 ascii_string: .asciz "aaabbcddddeeeee\0" @ Define a null-terminated string
 
 main_2d:
-
-	LDR R0, =ascii_string  @the address of the string
 	LDR R2, =#0  	@number of leds to be turned on
 	LDR R3, =#0 		@counter to the current place in the string
 	LDR R4, =#0		@check if all 26 letters in the alphabet have been checked
@@ -25,6 +23,7 @@ wait_for_button_d:
 	B wait_for_button_d
 
 letter_count:
+	LDR R0, =ascii_string  @the address of the string
 	CMP R4, #27 @check if all 26 letters have been checked
 	BEQ finished_everything
 
@@ -59,6 +58,7 @@ set_bitmask:
 	B set_bitmask
 
 turn_led:
+	LDR R0, =GPIOE
 	STRB R6, [R0, #ODR + 1]
 	ADD R5, #1
 	B wait_for_button_d
