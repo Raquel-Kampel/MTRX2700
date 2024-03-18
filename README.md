@@ -90,4 +90,12 @@ The delay function takes a delay of any reasonable time passed through register 
    periods entirely in hardware.
  - The delay function waits for the timer to reach the specified delay time before 
    returning.
+
+
+
+   FOR 10 seconds:
+
+   1/8Mhz = 1.25e-7 seconds to count 1 bit
+   random prescalar of 100 = 100 times longer to cpount once = 1.25e-6
+   for 10 seconds = 10/1.25e-6 = 8000000 which is value of auto reload register
   
