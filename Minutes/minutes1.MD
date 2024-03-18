@@ -1,7 +1,7 @@
-Group 8 Meeting Minutes
-Week 1 20TH FEB
+#Group 8 Meeting Minutes
+## Week 1 20TH FEB
 
-Attendees: Raquel, Campbell, Eric
+### Attendees: Raquel, Campbell, Eric
 Agenda: Understand the STM32CubeIDE, created a github repository
 
 
