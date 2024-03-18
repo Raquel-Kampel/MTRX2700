@@ -10,13 +10,13 @@
 #include "exercise2d.s"
 
 .data
-@ Define variables for Question 2.d
-//ascii_string: .asciz "Put something here\0" @ Define a null-terminated string
+
+@ Define variables for Question 2.d, bitmask that is needed to count the number of a letter
+//ascii_string: .asciz "aaabbddddz\0" 
 
 
 .text
 
-@ this is the entry function called from the startup file
 main:
 
 	@ Branch with link to set the clocks for the I/O and UART
@@ -26,18 +26,25 @@ main:
 	BL initialise_discovery_board
 
 @Exercise 2a, turn LEDs on with bitmask pattern
-@ store the current light pattern (binary mask) in R4
-	//LDR R4, =0b10101010
-	//BL main_2a
 
-@Exercise 2b and 2c, turns LEDs on/off with input button
-	LDR R3, =0b00000000
+ 	/*
+	LDR R4, =0b10101010 @store the current light pattern (binary mask) in R4
+	BL main_2a 
+ 	*/
+
+@Exercise 2b and 2c, turns LEDs on/off with the user input button
+
+ 	/*
+	LDR R3, =0b00000000 @set initial bitmask for the leds where all of them are off
 	LDR R6, =#0 @led position checker
-	BL wait_for_button
+	BL main_2bc
+ 	*/
 
 @Exercise 2d
-	//ascii_string: .asciz "aaabbcddddeeeee\0" @ Define a null-terminated string
-	//BL main_2d
+
+	/*
+ 	BL main_2d
+  	*/
 
 finished_everything:
 
