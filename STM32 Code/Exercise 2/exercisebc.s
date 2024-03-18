@@ -23,6 +23,7 @@ button_pressed:
 	@turn off
 	LSLS R3, R3, #0
 	ORR R3, R3, #0
+	LDR R0, =GPIOE
 	STRB R3, [R0, #ODR + 1]
 	ADD R6, #1
 	B wait_for_button
@@ -30,6 +31,7 @@ button_pressed:
 reset:
 	LSLS R3, R3, #0
 	ORR R3, R3, #0
+	LDR R0, =GPIOE
 	STRB R3, [R0, #ODR + 1]
 	LDR R6, =0
 	B wait_for_button
@@ -38,6 +40,7 @@ reset:
 turn_on:
 	LSLS R3, R3, #1
 	ORR R3, R3, #1
+	LDR R0, =GPIOE
 	STRB R3, [R0, #ODR + 1]
 	ADD R6, #1
 	B wait_for_button
