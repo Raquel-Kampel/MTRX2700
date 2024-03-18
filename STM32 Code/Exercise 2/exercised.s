@@ -12,10 +12,11 @@ main_2d:
 	LDR R3, =#0 		@counter to the current place in the string
 	LDR R4, =#0		@check if all 26 letters in the alphabet have been checked
 	LDR R5, =#0x61   @current alphabet that are being counted
-	LDR R6, =#0b00000000 @led bitmask
+
 
 wait_for_button_d:
 @	Wait for button:
+	LDR R6, =#0b00000000 @led bitmask
 	LDR R0, =GPIOA
 	LDRB R1, [R0, #IDR]
 	ANDS R1, #0x01
