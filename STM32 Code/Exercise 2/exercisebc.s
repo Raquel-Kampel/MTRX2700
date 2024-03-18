@@ -6,7 +6,7 @@
 	//Question 2.b & c
 	LDR R3, =#0b00000000
 
-wait_for_button:
+main_2bc:
 
 @	Wait for button:
 	LDR R0, =GPIOA
