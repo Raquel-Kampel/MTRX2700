@@ -44,7 +44,23 @@ input a random string and adding a value to R2.
 - Conversion is based on the difference between lowercase and uppercase characters ('a' - 'A' = 32)
 -  the function updates the string buffer with the new character and moves to the next character until the end of the string is reached.
   1b : Applys a shift in both positive and negative directions. 
-  1 c: number of iterations determines how many times the encoding or decoding process should be applied. Decoding reverses the encoding process. 
+  1 c: number of iterations determines how many times the encoding or decoding process should be applied. Decoding reverses the encoding process.
+   
+## Exercise 2 # - Digital I/O
+
+## Summary
+Exercise 2a Turns on the LEDs using a given bitmask
+
+Exercise 2b Turns on LEDs one by one, using the user input button. One LED turns on after button is pressed once
+
+Exercise 2c Turns off LEDs one by one, using the user input button. One LED turns off after button is pressed once
+
+Exercise 2d Turns on number of LEDs based on the number of the same letter appears in a given string
+
+## Explaination
+
+2b & 2c Sets an initial bitmask of 0b00000000 for all LEDs are off, shift the bitmask to left by one every time when the user input button is pressed. The code compares the bitmask to 0b10000000, to check where if the very left bit of the bitmask is "1", this means a LED should be turned off, else a LED should be turned on. To turn on, the lowest bit of the bitmask will be changed to "1" after shifting to left by 1, and to turn off, the lowest bit of the bitmask will stay "0" after shifting to left by 1.
+
 
 ## Exercise 4 # - Hardware Timer Delay Function with String Shifting
 
