@@ -139,7 +139,7 @@ The delay function takes a delay of any reasonable time passed through register 
    for 10 seconds = 10/1.25e-6 = 8000000 which is value of auto reload register
 
    FOR 1 SECOND
-   TIM_ARR = 800
+   TIM_ARR = 800 = 0x320
    prescalar of 10000
 
    1 HOUR
