@@ -131,16 +131,15 @@ The delay function takes a delay of any reasonable time passed through register 
    returning.
 
 
-
    FOR 10 seconds:
 
    1/8Mhz = 1.25e-7 seconds to count 1 bit
-   random prescalar of 100 = 100 times longer to cpount once = 1.25e-6
-   for 10 seconds = 10/1.25e-6 = 8000000 which is value of auto reload register
+   random prescalar of 10 000 = 10 000 (0x2710) times longer to count once = 1.25e-6
+   for 10 seconds = 10/1.25e-6 = 8000 which is value of auto reload register 8000           (0x1F40)
 
    FOR 1 SECOND
-   TIM_ARR = 800 = 0x320
-   prescalar of 10000
+   TIM_ARR = 800 = 0x320 
+   prescalar of 10000 (0x2710)
 
    1 HOUR
    prescalar of 100000
