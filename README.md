@@ -60,8 +60,28 @@ Exercise 2d Turns on number of LEDs based on the number of the same letter appea
 ## Explaination
 
 2b & 2c Sets an initial bitmask of 0b00000000 for all LEDs are off, shift the bitmask to left by one every time when the user input button is pressed. The code compares the bitmask to 0b10000000, to check where if the very left bit of the bitmask is "1", this means a LED should be turned off, else a LED should be turned on. To turn on, the lowest bit of the bitmask will be changed to "1" after shifting to left by 1, and to turn off, the lowest bit of the bitmask will stay "0" after shifting to left by 1.
+  # Exercise 3 # - Serial Communication
 
+### Summary
+This exercise focuses on mastering UART (Universal Asynchronous Receiver/Transmitter) communication with the STM32 discovery board. By exploring asynchronous serial communication, participants will learn to transmit and receive strings of characters without shared clock information between devices, utilizing multiple UARTs on the board.
+#### steps:
+1. Setting up the USART1/ USART4
+2. String Transmission Function
+3. Button-Press Transmission Initiation
+4. String Reception and Storage
+5. Clock Speed and Baud Rate Configuration
+### Usage
+Implement a function to transmit strings using UART4. This function should take a pointer to the string as an argument and append a terminating character to the end of the transmission.
 
+### Valid input
+Any ASCII string
+### Functions and modularity
+Testing the transmitting vs receiving in two sperate steps as our device was bale to send but not receive
+### Testing
+using putty to test
+
+### Notes
+Polling vs. Interrupts: This exercise employs polling for UART communication. Future exercises will introduce interrupt-based techniques for more efficient communication handling.
 ## Exercise 4 # - Hardware Timer Delay Function with String Shifting
 
 ### Summary
