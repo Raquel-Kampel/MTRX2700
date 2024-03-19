@@ -13,27 +13,29 @@ main_2bc:
 	B wait_for_button @loop if button is not pressed
 
 button_pressed:
-	@check if all the LEDs are on
-	LDR R5, =#0b10000000 @
-	CMP R3, R5
+	@check if all the leds are on
+	LDR R3, =#0b10000000
+	CMP R2, R3
 	BEQ reset
 	BMI turn_on
 	@turn off
-	LSLS R3, R3, #1
+	LSLS R2, R2, #1
+	SUB R2, #128
+	SUB R2, #128
 	LDR R0, =GPIOE
-	STRB R3, [R0, #ODR + 1]
-	B wait_for_button
+	STRB R2, [R0, #ODR + 1]
+	B main_2bc
 
 reset:
-	LSLS R3, R3, #1
+	LDR R2, =#0b00000000
 	LDR R0, =GPIOE
-	STRB R3, [R0, #ODR + 1]
-	B wait_for_button
+	STRB R2, [R0, #ODR + 1]
+	B main_2bc
 
 
 turn_on:
-	LSLS R3, R3, #1
-	ORR R3, R3, #1
+	LSLS R2, R2, #1
+	ORR R2, R2, #1
 	LDR R0, =GPIOE
-	STRB R3, [R0, #ODR + 1]
-	B wait_for_button
+	STRB R2, [R0, #ODR + 1]
+	B main_2bc
