@@ -9,7 +9,7 @@
 @ define variables
 
 @define an ASCII string
-ascii_string: .asciz "ABCDEF\0" @ Define a null-terminated string
+ascii_string: .asciz "ABCdEF\0" @ Define a null-terminated string
 string_buffer: .asciz "buffer\0" @ Define a null-terminated string
 
 
@@ -45,6 +45,7 @@ lowercase_loop:
 
 	STRB R4, [R0, R3] @puts new letter into buffer
 	ADD R3, #1
+	B string_loop
 
 
 make_lowercase:
@@ -73,8 +74,3 @@ finished_everything:
 
 	B finished_everything 	@ infinite loop here
 
-
-
-finished_everything:
-
-	B finished_everything 	@ infinite loop here
