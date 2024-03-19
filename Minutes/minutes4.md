@@ -1,19 +1,20 @@
-16/03/2023 (ALL PRESENT)
+Date - 16/03/2023
+Present:
+- Eric
+- Raquel
+- Campbell
 
-  refined excerise 2 and 3
-  
-  finished 1b
-  
-  worked on question 4
-  
+Meeting Purpose:
+- refined exercise 2
+- finished exercise 1b
+- refined exercise 1a and 1c
+- Worked on setting up STM32 controllers
+- Added to README file
 
-To do:
+### New to do list:
+- Campbell: Exercise 3
+- Eric: Exercise 4
+- Raquel: Exercise 4
 
-  question 4
-  
-  question 5
-  
-  reformat github, 
-  
-  add to README file
-
+### Next Meeting Date:
+18/03/2024
