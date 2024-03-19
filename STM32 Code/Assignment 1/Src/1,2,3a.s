@@ -3,14 +3,14 @@
 
 @Task 1.3.2a
 
-#include "1,2,3b"
+.global main
 
 .data
 @ define variables
 
 @define an ASCII string
-ascii_string: .asciz "ArandomASCIIstring\0" @ Define a null-terminated string
-string_buffer: .asciz "ufbxdjfhbxdkfjhbxdf" @ Define a null-terminated string
+ascii_string: .asciz "ABCDEF\0" @ Define a null-terminated string
+string_buffer: .asciz "buffer\0" @ Define a null-terminated string
 
 
 
@@ -19,15 +19,17 @@ string_buffer: .asciz "ufbxdjfhbxdkfjhbxdf" @ Define a null-terminated string
 
 
 @ this is the entry function called from the startup file
-1amain:
+main:
 
-	LDR R0, =string_buffer
-	LDR R1, =ascii_string  @ the address of the string
-	LDR R2, =0x00  @
+	LDR R0, =string_buffer @buffer
+	LDR R1, =ascii_string  @abcdef
+	LDR R2, =#0  @lower case or upper case command
 	LDR R3, =0x00 	@ counter to the current place in the string
 
 string_loop:
-	@ LDRB R4, [R1, R3]	@ load the byte from the ascii_string (byte number R2)
+	LDRB R4, [R1, R3]	@ load the byte from the ascii_string (byte number R2)
+	CMP R4, #0
+	BEQ finished_everything
 	@STRB R3, [R2, R3]	@ store the byte in the string_buffer (byte number R2)
 	CMP R2, #0 @ Test to see whether this byte is zero
 	BEQ lowercase_loop @loop to lower case if R2 is 0
@@ -35,10 +37,8 @@ string_loop:
 
 
 lowercase_loop:
-	LDRB R4, [R1, R3] @load current letter into R4
 	@LDR R3, #1 @increment to the next letter
-	CMP R4, #0 @ check if the end of the string
-	BEQ finished_everything
+
 	CMP R4, #97 @subtract 97 from ASCII value
 
 	BMI make_lowercase @if negative then the letter is uppercase
@@ -48,14 +48,30 @@ lowercase_loop:
 
 
 make_lowercase:
-	ADD R4, 32
+	ADD R4, #32
 	STRB R4, [R0, R3]@ turns uppercase into lowercase
 	ADD R3, #1
-	B lowercase_loop @exits loop
+	B string_loop @exits loop
 
 
 uppercase_loop:
-	@LDRSB R0[R4, #32]@turns lower into uppercase
+	CMP R4, #91
+	BMI stay_uppercase
+
+	SUB R4, #32
+	STRB R4, [R0, R3]@ turns uppercase into lowercase
+	ADD R3, #1
+	B string_loop @exits loop
+
+stay_uppercase:
+	STRB R4, [R0, R3]
+	ADD R3, #1
+	B string_loop
+
+
+finished_everything:
+
+	B finished_everything 	@ infinite loop here
 
 
 
