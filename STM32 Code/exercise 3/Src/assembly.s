@@ -24,7 +24,7 @@ main:
 
 	@ uncomment for exercise part:
 
-	B part_a_main @ (transmit)
+	@ B part_a_main @ (transmit)
 
 	@ B part_b_main @ (read)
 
@@ -32,4 +32,4 @@ main:
 
 	@ B part_d_main @ (transmit and read)
 
-	@ B part_e_main @ (transmit via USART1 and read with UART4)
+	B part_e_main @ (transmit via USART1 and read with UART4)

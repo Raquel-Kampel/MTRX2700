@@ -28,17 +28,18 @@ part_b_main:
 	B finish_loop
 
 
+
 rx_loop:
 
 	@ load UART status register
-	LDR R2, [R0, USART_ISR]
+	LDR R3, [R0, USART_ISR]
 
 	@ check for overrun or frame errors
-	TST R2, 1 << UART_ORE | 1 << UART_FE
-	BNE clear_error
+	//TST R3, 1 << UART_ORE | 1 << UART_FE
+	//BNE clear_error
 
 	@ check if there is a byte ready to read
-	TST R2, 1 << UART_RXNE
+	TST R3, 1 << UART_RXNE
 	BEQ rx_loop
 
 	@ store byte in the buffer and increment buffer position
@@ -50,6 +51,10 @@ rx_loop:
 	CMP R3, #0x0D
 	BEQ finish_read
 
+	@ if R5 is one, only transmit one byte at a time
+	CMP R5, #1
+	BEQ finish_read
+
 	@ check if transmission exceeds buffer size
 	CMP R7, R8
 	BGT no_reset
@@ -59,24 +64,29 @@ rx_loop:
 no_reset:
 
 	@ refreshes the RXNE flag (prevents overrun error)
-	LDR R2, [R0, USART_RQR]
-	ORR R2, 1 << UART_RXFRQ
-	STR R2, [R0, USART_RQR]
+	LDR R3, [R0, USART_RQR]
+	ORR R3, 1 << UART_RXFRQ
+	STR R3, [R0, USART_RQR]
 
 	BGT rx_loop
 
 
+/*
 clear_error:
 
 	@ Clear the overrun/frame error flags by setting them to 1
-	LDR R2, [R0, USART_ICR]
-	ORR R2, 1 << UART_ORECF | 1 << UART_FECF
-	STR R2, [R0, USART_ICR]
+	LDR R3, [R0, USART_ICR]
+	ORR R3, 1 << UART_ORECF | 1 << UART_FECF
+	STR R3, [R0, USART_ICR]
 
 	B rx_loop
+*/
 
 
 finish_read:
+
+	@ reset buffer position
+	MOV R8, #0
 
 	BX LR
 

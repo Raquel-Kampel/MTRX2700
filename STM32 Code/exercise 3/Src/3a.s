@@ -65,9 +65,9 @@ tx_loop:
 
 	@ check for carriage return (enter key), indicating to stop transmitting
 	CMP R3, #0x0D
-	BNE tx_loop
+	BEQ finish_transmit
 
-	B finish_transmit
+	B tx_loop
 
 
 wait_for_ISR:

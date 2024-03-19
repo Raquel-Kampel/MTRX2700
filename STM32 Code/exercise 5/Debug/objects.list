@@ -1,0 +1,8 @@
+"./Src/assembly.o"
+"./Src/definitions.o"
+"./Src/initialise.o"
+"./Src/letter_count.o"
+"./Src/receive.o"
+"./Src/sub_cipher.o"
+"./Src/transmit.o"
+"./Startup/startup_stm32f303vctx.o"

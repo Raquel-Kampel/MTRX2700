@@ -21,28 +21,31 @@ part_e_main:
 
 	B transmitting
 
-	@ B receiving
+	@ B reading
 
 
 
 transmitting:
 
-	LDR R0, =USART1	@ load USART1
+	LDR R0, =USART1		@ load USART1
 
-	@ read in characters from the command line
-	BL rx_loop
+	BL rx_loop			@ read from terminal
 
-	@ transmit characters
-	BL return_after_tx
+	LDR R0, =UART4		@ load UART4
 
-	B part_e_main
+	BL return_after_tx	@ transmit to other board (via UART4)
+
+	B part_e_main		@ loop back to reading
 
 
-receiving:
+reading:
 
-	LDR R0, =UART4 @ load UART4
+	LDR R0, =UART4 		@ load UART4
 
-	@ read in characters
-	BL rx_loop
+	BL rx_loop			@ read from other board
 
-	B part_e_main
+	LDR R0, =USART1		@ load USART1
+
+	BL return_after_tx	@ transmit to terminal
+
+	B part_e_main		@ loop back to reading

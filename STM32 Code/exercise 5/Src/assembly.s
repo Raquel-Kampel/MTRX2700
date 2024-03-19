@@ -29,6 +29,18 @@ main:
 	@ code 1 reads from terminal, encode using sub cipher, transmit to second board
 	@ code 2 reads from UART4, decondes message, count how many letters using LED
 
-finished:
+transmitting:
 
-	B finished
+	@ read from terminal (USART1), store message in R1
+	@ encode message in sub_cipher
+	@ transmit message to second board (UART4)
+	@ finish
+
+
+
+reading:
+
+	@ read from pin (UART4), store message in R1
+	@ decode message in sub_cipher
+	@ count how many letters, display with LEDs
+	@ finish
