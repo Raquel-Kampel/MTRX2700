@@ -12,7 +12,7 @@
 .data
 
 @ Define variables for Question 2.d, bitmask that is needed to count the number of a letter
-ascii_string: .asciz "aaabbddddfllloozzzzzzz\0"
+ascii_string: .asciz "aaabbddddflllooxxxxxyyzzzzzzz\0"
 
 
 .text
