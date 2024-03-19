@@ -3,8 +3,6 @@
 
 @Task 1.3.2a
 
-.global main
-
 .data
 @ define variables
 
@@ -19,7 +17,7 @@ string_buffer: .asciz "buffer\0" @ Define a null-terminated string
 
 
 @ this is the entry function called from the startup file
-main:
+1amain:
 
 	LDR R0, =string_buffer @buffer
 	LDR R1, =ascii_string  @abcdef
