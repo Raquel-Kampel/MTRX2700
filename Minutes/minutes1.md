@@ -17,7 +17,10 @@ Meeting Purpose:
 Previous Actions:
 - Set up group
 - Set up git repository
-Current Items:
+
+To do:
 - Raquel: Exercise 1 part b
 - Campbell: Exercise 1 part c
 - Eric: Start on Exercise 2
+
+
