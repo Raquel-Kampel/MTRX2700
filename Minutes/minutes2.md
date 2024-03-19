@@ -18,4 +18,4 @@ Meeting Purpose:
 - Raquel: Exercise 4
 
 ### Next Meeting Date:
-08/03/2024
+11/03/2024
