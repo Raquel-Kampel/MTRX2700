@@ -1,11 +1,19 @@
-19/03/2023 (ALL PRESENT)
+### Attendees: Raquel, Campbell, Eric
+In person in PNR
+Agenda: Finish debugging all code to complete question 5
 
-  Finished question 5
-  
-  Check everything worked
-  
-  reformated github
-  
-  completed meeting minutes
-  
-  Refined readme
+Present:
+- Eric
+- Raquel
+- Campbell
+
+Meeting Purpose:
+- Check everything worked
+- reformated github
+- completed meeting minutes
+- Refined readme
+
+To do:
+- Prepare for lab presentation
+- DONE!!! 
+
