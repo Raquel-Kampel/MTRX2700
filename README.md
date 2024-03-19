@@ -113,26 +113,21 @@ The delay function takes a delay of any reasonable time passed through register 
 - Selecting appropriate prescalar values
 - count rate is is 8MHz:
   Tick duration 1/frequency x (Prescalar value + 1)
-  
-  eg, precalar of 1 = 8Mhz
-  
+
   1 microsecond:
-  prescalar value = [8MHz x (1x10^-6)/(1x10^-6)]-1 = 7
-
-  1 second
-  prescalar value = [8MHz x 1]/(1)-1 = 7999999
-
-  1 hour
-  prescalar = (8MHz x3600)-1 = 28799999
+  prescalar value = 10 (A)
+  TIM_ARR = 0.8
 
  - The Auto-Reload Preload (ARPE) bit is enabled for precise management of delay    
    periods entirely in hardware.
  - The delay function waits for the timer to reach the specified delay time before 
    returning.
 
-
+  1 microsecond:
+  prescalar value = 10 (A)
+  TIM_ARR = 0.8
+  
    FOR 10 seconds:
-
    1/8Mhz = 1.25e-7 seconds to count 1 bit
    random prescalar of 10 000 = 10 000 (0x2710) times longer to count once = 1.25e-6
    for 10 seconds = 10/1.25e-6 = 8000 which is value of auto reload register 8000           (0x1F40)
