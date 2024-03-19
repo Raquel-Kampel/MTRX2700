@@ -60,6 +60,9 @@ Exercise 2d Turns on number of LEDs based on the number of the same letter appea
 ## Explaination
 
 2b & 2c Sets an initial bitmask of 0b00000000 for all LEDs are off, shift the bitmask to left by one every time when the user input button is pressed. The code compares the bitmask to 0b10000000, to check where if the very left bit of the bitmask is "1", this means a LED should be turned off, else a LED should be turned on. To turn on, the lowest bit of the bitmask will be changed to "1" after shifting to left by 1, and to turn off, the lowest bit of the bitmask will stay "0" after shifting to left by 1.
+
+2d Using the letters a - z in ASCII, the code reads through each letter in the given string. When it needs to shift left, the code compares the current letter to "a" as it is the lowest ASCII lower case alphabet letter, if the new shifted letter is lower than "a", then adds 26 to the new letter so that it goes back from "z". When it needs to shift right, the code compares the current letter to "z" as it is the highest ASCII lower case alphabet letter, if the new shifted letter is higher than "a", then subtracts 26 to the new letter so that it starts from "a". 
+
   # Exercise 3 # - Serial Communication
 
 ### Summary
