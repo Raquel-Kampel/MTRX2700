@@ -3,10 +3,11 @@
 
 .global main
 
+#include "definitions.s"
 #include "initialise.s"
 #include "sub_cipher.s"
 #include "letter_count.s"
-#include "receive.s"
+#include "read.s"
 #include "transmit.s"
 
 
@@ -19,28 +20,58 @@ main:
 
 	@ functions for set up
 	@ BL enable_timer2_clock
+	BL enable_peripheral_clocks
 	BL initialise_discovery_board
 	BL initialise_power
-	BL enable_peripheral_clocks
 	BL enable_uart
 
-	@ uncomment for exercise part:
+	B initialise_registers
 
-	@ code 1 reads from terminal, encode using sub cipher, transmit to second board
-	@ code 2 reads from UART4, decondes message, count how many letters using LED
+
+initialise_registers:
+
+	LDR R1, =incoming_buffer	@ buffer for storing string read in
+	LDR R7, =buffer_size		@ size of buffer
+	LDRB R7, [R7]				@ de-reference R7
+	MOV R8, #0x00				@ counter for how many letters received
+
+	@ uncomment for reading or transmitting:
+	B transmitting
+
+	@ B reading
+
+
 
 transmitting:
 
-	@ read from terminal (USART1), store message in R1
-	@ encode message in sub_cipher
-	@ transmit message to second board (UART4)
-	@ finish
+	LDR R0, =USART1 	@ load USART1
 
+	BL rx_loop			@ read from terminal, store message in R1
+
+	MOV R2, #0  		@ set R2 to 0 (encoding mode)
+	BL sub_cipher		@ encode message
+
+	LDR R0, =UART4		@ load UART4
+
+	BL return_after_tx	@ transmit to the other board
+
+	B finish_everything
 
 
 reading:
 
-	@ read from pin (UART4), store message in R1
-	@ decode message in sub_cipher
-	@ count how many letters, display with LEDs
-	@ finish
+	LDR R0, =UART4		@ load UART4
+
+	BL rx_loop			@ read from other board
+
+	MOV R2, #1			@ set R2 to 1 (decoding mode)
+	BL sub_cipher		@ decode message
+
+	BL letter_count		@ display number of letters on LED
+
+	B finish_everything
+
+
+finish_everything:
+
+	B finish_everything

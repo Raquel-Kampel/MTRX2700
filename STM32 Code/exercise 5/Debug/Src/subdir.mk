@@ -9,7 +9,7 @@ S_SRCS += \
 ../Src/definitions.s \
 ../Src/initialise.s \
 ../Src/letter_count.s \
-../Src/receive.s \
+../Src/read.s \
 ../Src/sub_cipher.s \
 ../Src/transmit.s 
 
@@ -18,7 +18,7 @@ OBJS += \
 ./Src/definitions.o \
 ./Src/initialise.o \
 ./Src/letter_count.o \
-./Src/receive.o \
+./Src/read.o \
 ./Src/sub_cipher.o \
 ./Src/transmit.o 
 
@@ -27,7 +27,7 @@ S_DEPS += \
 ./Src/definitions.d \
 ./Src/initialise.d \
 ./Src/letter_count.d \
-./Src/receive.d \
+./Src/read.d \
 ./Src/sub_cipher.d \
 ./Src/transmit.d 
 
@@ -39,7 +39,7 @@ Src/%.o: ../Src/%.s Src/subdir.mk
 clean: clean-Src
 
 clean-Src:
-	-$(RM) ./Src/assembly.d ./Src/assembly.o ./Src/definitions.d ./Src/definitions.o ./Src/initialise.d ./Src/initialise.o ./Src/letter_count.d ./Src/letter_count.o ./Src/receive.d ./Src/receive.o ./Src/sub_cipher.d ./Src/sub_cipher.o ./Src/transmit.d ./Src/transmit.o
+	-$(RM) ./Src/assembly.d ./Src/assembly.o ./Src/definitions.d ./Src/definitions.o ./Src/initialise.d ./Src/initialise.o ./Src/letter_count.d ./Src/letter_count.o ./Src/read.d ./Src/read.o ./Src/sub_cipher.d ./Src/sub_cipher.o ./Src/transmit.d ./Src/transmit.o
 
 .PHONY: clean-Src
 
