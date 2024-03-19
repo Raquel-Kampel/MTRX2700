@@ -6,23 +6,20 @@
 
 .data
 @ define variables
-ascii_string: .asciz "abcde\0" @ Define a null-terminated string
+ascii_string: .asciz "abcde\0" @string that needs to be shifted
 
 .text
-@ define text
 
-
-@ this is the entry function called from the startup file
 main:
 
-	LDR R1, =ascii_string  @ the address of the string
-	LDRB R2, =#1
+	LDR R1, =ascii_string  @load the string into R1
+	LDRB R2, =#1 @R2 is the number of places to shift to right or left
 	LDR R3, =#0
 	LDR R4, =#0x61 @a marker
 	LDR R5, =#0x7A	@z marker
 
 shift_direction:
-	SUB R2, #2
+	SUB R2, #2 @shift to left by 1
 	CMP R2, #0
 	BMI left_shift
 
