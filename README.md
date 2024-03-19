@@ -98,4 +98,33 @@ The delay function takes a delay of any reasonable time passed through register 
    1/8Mhz = 1.25e-7 seconds to count 1 bit
    random prescalar of 100 = 100 times longer to cpount once = 1.25e-6
    for 10 seconds = 10/1.25e-6 = 8000000 which is value of auto reload register
-  
+  # Exercise 5 # - Integration Exercise
+
+### Summary
+This exercise serves as an integration task, combining the skills and functions developed in the first four exercises into a single comprehensive application. The objective is to utilize and integrate previously developed functions to accomplish a complex task involving serial communication and data processing between a PC, a STM32discovery board, and a second STM32discovery board using USART and UART protocols. The key operation involves encoding a message received from the PC with a Substitution Cipher and transmitting this encoded message to the second board for decoding and analysis.
+#### steps:
+1. Setup communication
+2. send message from pc
+3. encode message
+4. transmit encoded message
+5. decode and analyze the message
+6. display the count 
+
+### Usage
+Ensure both STM32discovery boards are correctly wired for UART communication.
+Load the necessary software onto both boards and the PC for UART communication and message encoding/decoding.
+
+### Valid input
+ASCII strings sent from the PC to the first STM32discovery board via USART1.
+The inputs must be encodable and decodable by the Substitution Cipher used.
+### Functions and modularity
+1. UART Communication
+2. Substitution Cipher Encoding and Decoding
+3. Character Analysis and Display: 
+### Testing
+Unit Testing: Each function (UART communication, encoding/decoding, character analysis and display) was individually tested to ensure reliability and correct output.
+Integration Testing: After unit testing, the functions were integrated step by step to ensure compatibility and correct flow of data through the system. This included testing the entire process from message sending from the PC to message reception and display on the second board.
+
+
+### Notes
+One of the main challenges was ensuring reliable UART communication between the different components, especially concerning synchronization and error handling. Another challenge was optimizing the cipher algorithm for efficient encoding and decoding on the STM32discovery boards
