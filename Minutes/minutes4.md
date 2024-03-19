@@ -1,4 +1,5 @@
-###Date - 16/03/2023
+### Attendees: Raquel, Campbell, Eric
+## Week 4 - 16th March
 Present:
 - Eric
 - Raquel
