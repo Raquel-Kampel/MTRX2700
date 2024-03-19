@@ -1,51 +1,80 @@
 .syntax unified
 .thumb
 
-@Task 1.3.2b
+.global main
+
 
 .data
-@define variables
-ascii_string: .asciz "Hello, World" @define an ascii string
-string_buffer: .asciz "ufbxdjfhbxdkfjhbxdf" @ Define a null-terminated string
+@ define variables
+ascii_string: .asciz "abcde\0" @ Define a null-terminated string
+
+.text
+@ define text
 
 
-1bmain:
+@ this is the entry function called from the startup file
+main:
 
-    LDR R0, string_buffer
-    LDR R1, =ascii_string   @ store the memory address of the string into R1
-    LDR R2, = 0x00			@R2: Shift value (positive or negative)
-    MOV R2,#3               @ Set the shift value to 3 (you can change this value as needed)
+	LDR R1, =ascii_string  @ the address of the string
+	LDRB R2, =#1
+	LDR R3, =#0
+	LDR R4, =#0x61 @a marker
+	LDR R5, =#0x7A	@z marker
 
-    BL caesarCipher         @ Call the Caesar Cipher function
+shift_direction:
+	SUB R2, #2
+	CMP R2, #0
+	BMI left_shift
 
+	B right_shift
 
+right_shift:
 
-@caeserCipher function
-.global caesarCipher
+	LDRB R6, [R1, R3] @load current letter into R3
+	LDR R7, =#26
+	CMP R6, #0 @ check if the end of the string
+	BEQ end_of_string
 
-caeserCipher:
+	ADD R6, R2
+	CMP R6, R5
+	BMI below_z
 
-	@ Parameters:
-    @   R1 - Memory address of the string
-    @   R2 - Shift amount
-
-	MOV R3, R2 @copy the shift value to R3
-
-    @ Loop through the string
-    loop:
-        LDRB R3,[R1], #1        @ Load one byte at the current address of R1 into R3 and increment the address
-        CMP R3, #0               @ Compares the byte in R4 to zero to check for the end of the string
-        BEQ endLoop              @ If the above is true then, exit the loop
-
-        ADD R3, R3, R2           @ Apply the Caesar Cipher shift to the current byte
-
-        STRB R3,[R1, #-1]       @ Store the shifted byte back to memory
-
-        B loop                   @ Repeat the loop
-
-    endLoop:
-    POP {PC}                     @ Restore the program counter
+	SUB R6, R7
+	STRB R6, [R1, R3]
+	ADD R3, #1
+	B right_shift
 
 
-finished_everything:
-	B finished_everything	@ infinite loop here
+below_z:
+
+	STRB R6, [R1, R3]@replace value of r6 into r1
+	ADD R3, #1
+	B right_shift
+
+
+
+left_shift:
+
+	LDRB R6, [R1, R3] @load current letter into R3
+	LDR R7,  =#26
+	CMP R6, #0 @ check if the end of the string
+	BEQ end_of_string
+
+	ADD R6, R2
+	CMP R6, R4
+	BMI too_low
+
+	STRB R6, [R1, R3] @replace value of r6 into r1
+	ADD R3, #1
+	B left_shift
+
+too_low:
+
+	ADD R6, R7
+	STRB R6, [R1, R3]
+	ADD R3, #1
+	B left_shift
+
+end_of_string:
+
+ 	B end_of_string
