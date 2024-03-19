@@ -29,20 +29,20 @@ main:
 
  	/*
 	LDR R1, =0b10101010 @store the current light pattern (binary mask) in R1
-	BL main_2a 
+	BL main_2a @branch to the function for exercise 2a
  	*/
 
 @Exercise 2b and 2c, turns LEDs on/off with the user input button
 
  	/*
-	LDR R2, =#0b00000000
-	BL main_2bc
+	LDR R2, =#0b00000000 @stores the original bitmask of the leds into r2
+	BL main_2bc @branch to the function for exercise 2b and 2c
  	*/
 
 @Exercise 2d
 
 	/*
- 	BL main_2d
+ 	BL main_2d branch to the function for exercise 2d
   	*/
 
 finished_everything:
