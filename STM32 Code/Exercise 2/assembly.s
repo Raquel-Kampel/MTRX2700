@@ -35,8 +35,7 @@ main:
 @Exercise 2b and 2c, turns LEDs on/off with the user input button
 
  	/*
-	LDR R3, =0b00000000 @set initial bitmask for the leds where all of them are off
-	LDR R6, =#0 @led position checker
+	LDR R2, =#0b00000000
 	BL main_2bc
  	*/
 
