@@ -23,4 +23,8 @@ To do:
 - Campbell: Exercise 1 part c
 - Eric: Start on Exercise 2
 
+  ### Next Meeting Date:
+5/03/2024
+
+
 
