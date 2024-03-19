@@ -22,7 +22,7 @@
 .equ RCC, 0x40021000
 .equ APB1ENR, 0x1C
 .equ TIM2EN, 0
-
+.equ TIM2EGR, 0
 
 .equ GPIOA, 0x48000000	@ base register for GPIOA (pa0 is the button)
 .equ GPIOC, 0x48000800	@ base register for GPIOA (pa0 is the button)
@@ -46,3 +46,4 @@
 .equ TIM_CCR1, 0x34 @ capture/compare register for channel 1
 .equ TIM_SR, 0x10 @ status of the timer
 .equ TIM_DIER, 0x0C @ enable interrupts
+.equ TIM_EGR, 0x14 @enable event generation register
