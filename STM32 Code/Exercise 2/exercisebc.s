@@ -9,14 +9,14 @@ main_2bc:
 	LDR R0, =GPIOA @load the address of the GPIOE register into R0
 	LDRB R1, [R0, #IDR] @store this to the second byte of the ODR (bits 8-15) into R1
 	ANDS R1, #0x01 @check if the button is pressed
-	BNE button_pressed @branch to the next command
+	BNE button_pressed @branch to the next command once the button is pressed
 	B delay_function @loop if button is not pressed
 
 button_pressed:
 	@check if all the leds are on
-	LDR R3, =#0b10000000
-	CMP R2, R3
-	BEQ reset
+	LDR R3, =#0b10000000 @bitmask of only the last led is on
+	CMP R2, R3 @
+	BEQ reset @function that turns off the last led 
 	BMI turn_on
 	@turn off
 	LSLS R2, R2, #1
