@@ -12,7 +12,7 @@
 .data
 
 @ Define variables for Question 2.d, bitmask that is needed to count the number of a letter
-//ascii_string: .asciz "aaabbddddz\0" 
+ascii_string: .asciz "aaabbddddfllloozzzzzzz\0" 
 
 
 .text
@@ -28,7 +28,7 @@ main:
 @Exercise 2a, turn LEDs on with bitmask pattern
 
  	/*
-	LDR R4, =0b10101010 @store the current light pattern (binary mask) in R4
+	LDR R1, =0b10101010 @store the current light pattern (binary mask) in R1
 	BL main_2a 
  	*/
 
